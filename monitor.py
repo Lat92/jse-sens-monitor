@@ -20,8 +20,15 @@ def save_state(state):
 def get_sens_links():
     r = requests.get(SENS_FEED_URL, headers=HEADERS)
     soup = BeautifulSoup(r.text, "lxml")
-    articles = soup.select(".article-summary a")
-    links = ["https://www.moneyweb.co.za" + a['href'] for a in articles if "dealing in securities" in a.text.lower()]
+    items = soup.select(".article-summary")
+
+    links = []
+    for item in items:
+        full_text = item.get_text().lower()
+        if "dealing in securities" in full_text or "director dealings" in full_text or "dealings by" in full_text:
+            a = item.find("a")
+            if a and 'href' in a.attrs:
+                links.append("https://www.moneyweb.co.za" + a['href'])
     return links
 
 def parse_sens(url):
