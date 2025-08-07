@@ -21,7 +21,7 @@ def get_sens_links():
     r = requests.get(SENS_FEED_URL, headers=HEADERS)
     soup = BeautifulSoup(r.text, "lxml")
     articles = soup.select(".article-summary a")
-    links = ["https://www.moneyweb.co.za" + a['href'] for a in articles if "dealings in securities" in a.text.lower()]
+    links = ["https://www.moneyweb.co.za" + a['href'] for a in articles if "dealing in securities" in a.text.lower()]
     return links
 
 def parse_sens(url):
