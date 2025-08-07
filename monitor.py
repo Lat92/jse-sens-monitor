@@ -29,7 +29,7 @@ def parse_sens(url):
     soup = BeautifulSoup(r.text, "lxml")
     text = soup.get_text().lower()
 
-    if "dealings in securities" not in text:
+    if "dealing in securities" not in text:
         return None
 
     name_match = re.search(r"name[s]?:\s*(.*?)(\n|$)", text)
